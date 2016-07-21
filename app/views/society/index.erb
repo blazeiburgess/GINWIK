@@ -1,0 +1,5 @@
+<h1>Societies</h1>
+
+<% Society.all.each do |society| %>
+  <p><a href="/societies/<%= society.name + "_" + society.id.to_s %>"><%= society.name %></a></p>
+<% end %>

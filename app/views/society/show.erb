@@ -1,0 +1,4 @@
+<h1><%= @society.name %></h1>
+<% @methods.each do |method| %>
+  <p><%= @society.send(method).description %></p>
+<% end %>
