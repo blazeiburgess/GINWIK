@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721125519) do
+ActiveRecord::Schema.define(version: 20160721165925) do
 
   create_table "conflicts", force: :cascade do |t|
     t.integer "group_1_id"
     t.integer "group_2_id"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "cultures", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160721125519) do
     t.text    "religion"
     t.text    "folklore"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "economic_organizations", force: :cascade do |t|
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160721125519) do
     t.text    "geography"
     t.text    "biodiversity"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "governmental_organizations", force: :cascade do |t|
@@ -56,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160721125519) do
     t.text    "judicial"
     t.text    "legislative"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "histories", force: :cascade do |t|
@@ -63,12 +67,14 @@ ActiveRecord::Schema.define(version: 20160721125519) do
     t.text    "ethnic_disputes"
     t.text    "social_disputes"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "languages", force: :cascade do |t|
     t.string  "official_language"
     t.text    "diversity"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "social_groups", force: :cascade do |t|
@@ -87,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160721125519) do
     t.text    "communications"
     t.text    "comparison"
     t.integer "society_id"
+    t.text    "description"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,6 +1,6 @@
 class SocietyController < Sinatra::Base
   set :views, Proc.new { File.join(root, "../views/society") }
-  enable :sessions
+  enable :sessions 
 
   get '/societies' do 
     erb :index

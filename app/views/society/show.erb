@@ -1,4 +1,12 @@
 <h1><%= @society.name %></h1>
 <% @methods.each do |method| %>
-  <p><%= @society.send(method).description %></p>
+  <h5><%= method.to_s.split("_").map(&:capitalize).join(" ") %></h5>
+  <% if @society.send(method) %>
+    <div class="row">
+      <div class="two columns"></div>
+      <div class="ten columns"><p><%= @society.send(method).description %></p></div>
+    </div> 
+  <% else %>
+    <small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>">Add category details</a></small>
+  <% end %>
 <% end %>
