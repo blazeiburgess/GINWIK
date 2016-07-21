@@ -14,7 +14,10 @@
   <% else %>
     <div class="row">
       <div class="four columns"></div>
-      <div class="eight columns"><small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/edit">Add details</a></small></div>
+      <div class="eight columns">
+	      <small>null</small><br>
+	<small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/new">Add details</a></small>
+      </div>
     </div>  
     <br>
   <% end %>

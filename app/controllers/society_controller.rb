@@ -29,7 +29,16 @@ class SocietyController < Sinatra::Base
 
   get '/societies/:slug/:method/edit' do
     @society = Society.find(params[:slug].split("_")[-1]) 
-    @method = @society.send(params[:method].to_sym)
+    @method = @society.send(params[:method].to_sym) 
+    erb :'society/method/edit'
+  end
+
+  get '/societies/:slug/:method/new' do
+    @society = Society.find(params[:slug].split("_")[-1]) 
+    @method = Kernel.const_get(params[:method].split("_").map(&:capitalize).join).create
+    @society.send("#{params[:method].to_sym}=", @method) 
+    @society.save
+    @society.send(params[:method].to_sym).save
     erb :'society/method/edit'
   end
 end
