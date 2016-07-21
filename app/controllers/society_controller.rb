@@ -8,10 +8,25 @@ class SocietyController < Sinatra::Base
     erb :'society/index'
   end
 
+  post '/societies' do
+    @society = Society.find(params[:society_id])
+    @society.update(params[:society])
+    redirect to '/societies'
+  end
+
+  get '/societies/new' do
+    @society = Society.create    
+    erb :'society/edit'
+  end
+
   get '/societies/:slug' do
-    @society = Society.find(params[:slug].split("_")[-1])
-    
+    @society = Society.find(params[:slug].split("_")[-1])    
     erb :'society/show'
+  end
+
+  get '/societies/:slug/edit' do
+    @society = Society.find(params[:slug].split("_")[-1])    
+    erb :'society/edit'
   end
 
   get '/societies/:slug/:method' do

@@ -1,0 +1,5 @@
+<form action="/societies" method="post">
+  <input type="text" name="society[name]" <%= "value=\"#{@society.name}\"" if @society.name %>>
+  <input type="hidden" name="society_id" value="<%= @society.id %>">
+  <input type="submit" value="submit">
+</form>
