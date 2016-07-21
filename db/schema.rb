@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720210325) do
+ActiveRecord::Schema.define(version: 20160721125519) do
 
   create_table "conflicts", force: :cascade do |t|
     t.integer "group_1_id"
@@ -78,7 +78,8 @@ ActiveRecord::Schema.define(version: 20160720210325) do
   end
 
   create_table "societies", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "user_id"
   end
 
   create_table "technological_developments", force: :cascade do |t|
@@ -86,6 +87,11 @@ ActiveRecord::Schema.define(version: 20160720210325) do
     t.text    "communications"
     t.text    "comparison"
     t.integer "society_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
   end
 
 end
