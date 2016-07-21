@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'active_record'
 require 'shotgun'
 require 'sqlite3'
+require 'pry'
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
