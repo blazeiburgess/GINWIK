@@ -1,0 +1,15 @@
+<h1><%= @society.name %></h1>
+<h3><%= params[:method].split("_").map(&:capitalize).join(" ") %></h3>
+<hr>
+<% @method.attribute_names.each do |attribute| %>
+  <% if !attribute.include?("id") %>
+	<h5><%= attribute.split("_").map(&:capitalize).join(" ") %></h5>
+    <div class="row">
+	<div class="four columns"></div>
+	<div class="eight columns">
+	  <p><%= @method.send(attribute.to_sym) %></p>
+	</div>
+    </div>
+  <% end %>
+<% end %>
+<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>/edit""><button>Edit entry</button></a>

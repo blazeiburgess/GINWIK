@@ -1,18 +1,21 @@
 <h1><%= @society.name %></h1>
+<hr>
 <% METHODS.each do |method| %>
-  <div class="row">
-    <div class="two columns"></div>
-    <div class="ten columns"><h5><%= method.to_s.split("_").map(&:capitalize).join(" ") %></h5></div>
-  </div>
+  <h5><%= method.to_s.split("_").map(&:capitalize).join(" ") %></h5> 
   <% if @society.send(method) %>
     <div class="row">
-      <div class="one-third columns"></div>
-      <div class="two-thirds columns"><p><%= @society.send(method).description %></p></div>
+      <div class="two columns"></div>
+      <div class="ten columns">
+	<p><%= @society.send(method).description %></p>
+	<small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>">view details</a></small>
+      </div>
     </div> 
+    <br>
   <% else %>
     <div class="row">
       <div class="four columns"></div>
-      <div class="eight columns"><p><small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>">Add category details</a></small></p></div>
+      <div class="eight columns"><small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/edit">Add details</a></small></div>
     </div>  
+    <br>
   <% end %>
 <% end %>

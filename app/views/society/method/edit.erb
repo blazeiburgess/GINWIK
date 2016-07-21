@@ -1,0 +1,12 @@
+<h1>Edit <%= @society.name + " - " + params[:method].split("_").map(&:capitalize).join(" ") %></h1>
+
+<form action="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>" method="POST">
+  <% @method.attribute_names.each do |attribute| %>
+    <% unless attribute.include?("id") %>
+      <label><%= attribute.split("_").map(&:capitalize).join(" ") %></label>
+      <textarea name="<%= params[:method] + "[" + attribute + "]" %>"><%= @method.send(attribute.to_sym) %></textarea>
+    <% end %>
+  <% end %>
+  <br>
+  <input type="submit" value="submit">
+</form>

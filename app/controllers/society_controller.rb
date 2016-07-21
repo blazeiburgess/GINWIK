@@ -13,4 +13,23 @@ class SocietyController < Sinatra::Base
     
     erb :'society/show'
   end
+
+  get '/societies/:slug/:method' do
+    @society = Society.find(params[:slug].split("_")[-1]) 
+    @method = @society.send(params[:method].to_sym)
+    erb :'society/method/show'
+  end
+
+  post '/societies/:slug/:method' do
+    @society = Society.find(params[:slug].split("_")[-1]) 
+    @method = @society.send(params[:method].to_sym)
+    @method.update(params[params[:method].to_sym]) 
+    redirect to "/societies/#{params[:slug]}/#{params[:method]}"
+  end
+
+  get '/societies/:slug/:method/edit' do
+    @society = Society.find(params[:slug].split("_")[-1]) 
+    @method = @society.send(params[:method].to_sym)
+    erb :'society/method/edit'
+  end
 end
