@@ -3,8 +3,7 @@
   <p>You have no societies.</p>
 <% else %>
   <% @user.societies.each do |society| %>
-    <a href="societies/<%= society.name + "_" + society.id %>"><%= society.name %></a>
+    <a href="/societies/<%= society.name + "_" + society.id.to_s %>"><%= society.name %></a><br><br>
   <% end %>
 <% end %>
-<p><%= session.keys %></p>
 <a href="/societies/new"><button>Create a New Society</button></a>
