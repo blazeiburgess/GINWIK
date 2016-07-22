@@ -9,13 +9,17 @@ class SocietyController < Sinatra::Base
   end
 
   post '/societies' do
-    @society = Society.find(params[:society_id])
-    @society.update(params[:society])
+    if params[:society_id]
+      @society = Society.find(params[:society_id])
+      @society.update(params[:society])
+    else
+      Society.create(params[:society])
+    end
     redirect to '/societies'
   end
 
   get '/societies/new' do
-    @society = Society.create    
+    @society = Society.new 
     erb :'society/edit'
   end
 
