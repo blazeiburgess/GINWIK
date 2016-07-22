@@ -1,8 +1,12 @@
+<% if @message %>
+  <small><%= @message %></small><br><br>
+<% end %>
+
 <h1>User Form</h1>
 
 <form action="/users" method="POST">
   <label>Username</label><br>
-  <input type="text" name="user[username]" value="<%= @user.username %>">
+  <input type="text" name="user[username]" value="<%= @user.username %>" required>
   <label>Password</label><br>
   <input type="password" name="user[password]">
   <% if @user.id %>

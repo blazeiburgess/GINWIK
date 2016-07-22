@@ -2,18 +2,24 @@
 class UserController < ApplicationController
 
   post '/users' do
-    if params[:user_id]
-      user = User.find(params[:user_id]) 
-      user.update(params[:user])
+    if all_usernames.include?(params[:user][:username])
+      session[:message] = "Username already taken. Please pick another."
+      redirect to '/users/new'
     else
-      user = User.create(params[:user])
+      if params[:user_id]
+	user = User.find(params[:user_id]) 
+	user.update(params[:user])
+      else
+	user = User.create(params[:user])
+      end
+      session[:user_id] = user.id
+      redirect to "/users/#{user.id}"
     end
-    session[:user_id] = user.id
-    redirect to "/users/#{user.id}"
   end
 
   get '/users/new' do
     @user = User.new
+    @message = session.delete(:message)
     erb :'user/edit'
   end 
 
@@ -42,6 +48,7 @@ class UserController < ApplicationController
   end
 
   get '/users/:id/edit' do
+    @message = session.delete(:message)
     if current_user(session) == User.find(params[:id])
       @user = User.find(params[:id])
       erb :'user/edit'

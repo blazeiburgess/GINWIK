@@ -5,4 +5,7 @@ module Helpers
   def is_logged_in?(session)
     !!current_user(session)
   end
+  def all_usernames
+    User.all.map(&:username)
+  end
 end

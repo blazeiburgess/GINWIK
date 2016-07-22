@@ -12,6 +12,8 @@
     </div>
   <% end %>
 <% end %>
-<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>/edit"><button>Edit entry</button></a>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>/edit"><button>Edit entry</button></a>
+<% end %>
 <br>
 <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>">Go Back</a>
