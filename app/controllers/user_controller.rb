@@ -1,8 +1,7 @@
 
-class UserController < SocietyController
+class UserController < ApplicationController
  
   post '/users' do
-    binding.pry
     if params[:user_id]
       user = User.find(params[:user_id]) 
       user.update(params[:user])
@@ -23,10 +22,9 @@ class UserController < SocietyController
   end
 
   post '/login' do
-    user = User.find_by({:username => params[:user][:username]}) 
-    binding.pry
+    user = User.find_by({:username => params[:user][:username]})  
     if user && user.authenticate(params[:user][:password])
-      session[:user_id] = user.id 
+      session[:user_id] = user.id    
       redirect to "/users/#{user.id}"
     else
       redirect to '/login'
@@ -39,7 +37,7 @@ class UserController < SocietyController
   end
 
   get '/users/:id' do
-    @user = User.find(params[:id])  
+    @user = User.find(params[:id])   
     erb :'user/show'
   end
 

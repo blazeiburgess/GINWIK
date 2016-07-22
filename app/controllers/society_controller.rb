@@ -1,6 +1,4 @@
-class SocietyController < Sinatra::Base
-  set :views, Proc.new { File.join(root, "../views") }
-  enable :sessions 
+class SocietyController < ApplicationController
 
   METHODS = [:culture, :economic_organization, :education, :environment, :governmental_organization, :history, :language, :technological_development]
 
