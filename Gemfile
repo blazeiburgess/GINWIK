@@ -9,6 +9,6 @@ gem 'tux'
 gem 'pry'
 gem 'rake'
 gem 'rack-test'
-
+gem 'bcrypt'
 
 

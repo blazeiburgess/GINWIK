@@ -1,0 +1,8 @@
+<h1><%= @user.username %></h1>
+<% if @user.societies.empty? %>
+  <p>You have no societies.</p>
+<% else %>
+  <% @user.societies.each do |society| %>
+    <a href="societies/<%= society.name + "_" + society.id %>"><%= society.name %></a>
+  <% end %>
+<% end %>
