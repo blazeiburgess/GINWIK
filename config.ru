@@ -1,7 +1,7 @@
 $:.unshift '.'
-require 'config/environment'
+require './config/environment'
 
 
 use UserController
-use ApplicationController
-run SocietyController
+use SocietyController
+run ApplicationController

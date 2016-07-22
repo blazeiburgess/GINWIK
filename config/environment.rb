@@ -5,6 +5,7 @@ require 'shotgun'
 require 'sqlite3'
 require 'pry'
 require 'bcrypt'
+require_relative '../app/helpers/helpers'
 
 ActiveRecord::Base.establish_connection(
   :adapter => "sqlite3",
