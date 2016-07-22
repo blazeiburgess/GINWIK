@@ -15,11 +15,12 @@
     <div class="row">
       <div class="four columns"></div>
       <div class="eight columns">
-	      <small>null</small><br>
-	<small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/new">Add details</a></small>
+	<small>null</small><br>
+	<% if current_user(session) == @society.user %>
+	  <small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/new">Add details</a></small>
+	<% end %>
       </div>
     </div>  
     <br>
   <% end %>
 <% end %>
-<p><%= session.keys %></p>
