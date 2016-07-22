@@ -1,3 +1,7 @@
+<% if @message %>
+  <small><%= @message %></small>
+<% end %>
+
 <form action="/login" method='POST'>
   <input type="text" name="user[username]">
   <input type="password" name="user[password]">

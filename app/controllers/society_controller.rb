@@ -1,9 +1,6 @@
 class SocietyController < ApplicationController
 
-  METHODS = [:culture, :economic_organization, :education, :environment, :governmental_organization, :history, :language, :technological_development]
-
   get '/societies' do 
-    
     @message = session.delete(:message)
     erb :'society/index'
   end
@@ -24,12 +21,12 @@ class SocietyController < ApplicationController
   end
 
   get '/societies/:slug' do
-    @society = Society.find(params[:slug].split("_")[-1])    
+    @society = Society.find(get_id(params[:slug]))    
     erb :'society/show'
   end
 
   get '/societies/:slug/edit' do
-    @society = Society.find(params[:slug].split("_")[-1])    
+    @society = Society.find(get_id(params[:slug]))
     if current_user(session).id == @society.user.id
       erb :'society/edit'
     else
@@ -39,20 +36,20 @@ class SocietyController < ApplicationController
   end
 
   get '/societies/:slug/:method' do
-    @society = Society.find(params[:slug].split("_")[-1]) 
+    @society = Society.find(get_id(params[:slug])) 
     @method = @society.send(params[:method].to_sym)
     erb :'society/method/show'
   end
 
   post '/societies/:slug/:method' do
-    @society = Society.find(params[:slug].split("_")[-1]) 
+    @society = Society.find(get_id(params[:slug])) 
     @method = @society.send(params[:method].to_sym)
     @method.update(params[params[:method].to_sym]) 
     redirect to "/societies/#{params[:slug]}/#{params[:method]}"
   end
 
   get '/societies/:slug/:method/edit' do
-    @society = Society.find(params[:slug].split("_")[-1]) 
+    @society = Society.find(get_id(params[:slug])) 
     if current_user(session) == @society.user
       @method = @society.send(params[:method].to_sym) 
       erb :'society/method/edit'
@@ -63,7 +60,7 @@ class SocietyController < ApplicationController
   end
 
   get '/societies/:slug/:method/new' do
-    @society = Society.find(params[:slug].split("_")[-1]) 
+    @society = Society.find(get_id(params[:slug])) 
     if current_user(session) == @society.user
       @method = Kernel.const_get(params[:method].split("_").map(&:capitalize).join).create
       @society.send("#{params[:method].to_sym}=", @method) 

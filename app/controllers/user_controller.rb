@@ -5,6 +5,9 @@ class UserController < ApplicationController
     if all_usernames.include?(params[:user][:username])
       session[:message] = "Username already taken. Please pick another."
       redirect to '/users/new'
+    elsif params[:user][:username].empty? || params[:user][:password].empty?
+      session[:message] = "Both fields must be filled out"
+      redirect to '/login'
     else
       if params[:user_id]
 	user = User.find(params[:user_id]) 
@@ -24,15 +27,24 @@ class UserController < ApplicationController
   end 
 
   get '/login' do
-    erb :'user/login'
+    if is_logged_in?(session)
+      redirect to "/users/#{session[:user_id]}"
+    else
+      @message = session.delete(:message)
+      erb :'user/login'
+    end
   end
 
   post '/login' do
-    user = User.find_by({:username => params[:user][:username]})  
-    if user && user.authenticate(params[:user][:password])
+    user = User.find_by({:username => params[:user][:username]})
+    if params[:user][:username].empty? || params[:user][:password].empty?
+      session[:message] = "Both fields must be filled out"
+      redirect to '/login'
+    elsif user && user.authenticate(params[:user][:password])
       session[:user_id] = user.id    
       redirect to "/users/#{user.id}"
     else
+      session[:message] = "Username and password combination do not match our records"
       redirect to '/login'
     end
   end
