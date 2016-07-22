@@ -10,7 +10,11 @@ Clone and Merge
 
 clone would let someone create a new instance of a SOCIETY with all the same information, but tied to the user that cloned it and editable only to them.
 
-merge would take the information from a single subcategory of society and copy that under the same heading in their chosen 
+merge would take the information from a single subcategory of society and copy that under the same heading in their chosen. 
+
+A merge can be done by taking the `#attributes` method on any category and creating a new instance, though this would necessitate ignoring the `id` attributes (i.e., also the `society_id` or `user_id`, depending).
+
+A clone makes sense as a series of merges, accessing all the methods of the parent society and creating a instance of each model as they come along, only reassigning ids (which the database would handle) and user/society_ids (which would have to be programmed in)
 
 ## Schema
 
