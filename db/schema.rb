@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721165925) do
+ActiveRecord::Schema.define(version: 20160723184309) do
 
   create_table "conflicts", force: :cascade do |t|
     t.integer "group_1_id"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160721165925) do
     t.text    "description"
     t.boolean "legitimized"
     t.integer "society_id"
+    t.string  "name"
   end
 
   create_table "societies", force: :cascade do |t|
