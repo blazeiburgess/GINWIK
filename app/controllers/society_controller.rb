@@ -57,8 +57,13 @@ class SocietyController < ApplicationController
 
   get '/societies/:slug/social_groups/new' do
     @society = Society.find(get_id(params[:slug]))
-    @social_group = SocialGroup.new
-    erb :'society/social_groups/edit'
+    if current_user(session) == @society.user
+      @social_group = SocialGroup.new
+      erb :'society/social_groups/edit'
+    else
+      session[:message] = "You can only add social groups to your own societies"
+      redirect to "/societies/#{params[:slug]}"
+    end
   end
 
   get '/societies/:slug/social_groups/:social_group_id' do
