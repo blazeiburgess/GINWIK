@@ -16,3 +16,6 @@
     </div>
   <% end %>
 <% end %>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= @social_group.id %>/edit"><button>Edit</button></a>
+<% end %>
