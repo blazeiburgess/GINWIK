@@ -66,6 +66,20 @@ class SocietyController < ApplicationController
     end
   end
 
+  get '/societies/:slug/conflicts/new' do
+    @society = Society.find(get_id(params[:slug]))
+    @conflict = Conflict.new
+    erb :'society/conflicts/edit'
+  end
+
+  get '/societies/:slug/conflicts/:conflict_id' do
+    @society = Society.find(get_id(params[:slug]))
+    @conflict = Conflict.find(params[:conflict_id])
+    @group1 = SocialGroup.find(@conflict.group_1_id)
+    @group2 = SocialGroup.find(@conflict.group_2_id)
+    erb :'society/conflicts/show'
+  end
+
   get '/societies/:slug/social_groups/:social_group_id' do
     @society = Society.find(get_id(params[:slug]))
     @social_group = SocialGroup.find(params[:social_group_id])
