@@ -31,6 +31,8 @@
     <p><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a></p>
   <% end %>
 <% else %>
-  <small>null</small> 
+  <small>null</small><br>
 <% end %>
-<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/new"><button>Create a new Social Group</button></a>
+<% if @society.user == current_user(session) %>
+  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/new"><button>Create a new Social Group</button></a>
+<% end %>
