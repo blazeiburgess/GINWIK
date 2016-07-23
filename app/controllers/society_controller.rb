@@ -1,7 +1,8 @@
 class SocietyController < ApplicationController
 
   get '/societies' do  
-    session[:page_title] = "GINWI - Societies"
+    session[:page_title] = "GINWI - Societies" 
+    session[:home] = true
     erb :'society/index'
   end
 
