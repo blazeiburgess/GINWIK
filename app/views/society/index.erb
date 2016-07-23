@@ -6,6 +6,10 @@
 <% Society.all.each do |society| %>
   <p>
     <a href="/societies/<%= society.name + "_" + society.id.to_s %>"><%= society.name %></a><br>
-    <small>by <a href="/users/<%= society.user.id %>"><%= society.user.username %></a></small>
+    <% if society.user == current_user(session) %>
+      <small>by <a href="/users/<%= society.user.id %>"><%= society.user.username %></a> <span style="opacity: .6">(you)</span></small>
+    <% else %>
+      <small>by <a href="/users/<%= society.user.id %>"><%= society.user.username %></a></small>
+    <% end %>
   </p>
 <% end %>
