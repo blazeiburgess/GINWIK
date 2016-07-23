@@ -66,6 +66,19 @@ class SocietyController < ApplicationController
     end
   end
 
+  post '/societies/:slug/conflicts' do
+    @society = Society.find(get_id(params[:slug]))
+    if params[:conflict_id]
+      conflict = Conflict.find(params[:conflict_id])
+      conflict.update(params[:conflict]) 
+    else
+      conflict = Conflict.create(params[:conflict])
+      conflict.society = @society
+      conflict.save 
+    end
+    redirect to "/societies/#{params[:slug]}/conflicts/#{conflict.id}"
+  end
+
   get '/societies/:slug/conflicts/new' do
     @society = Society.find(get_id(params[:slug]))
     @conflict = Conflict.new
@@ -78,6 +91,12 @@ class SocietyController < ApplicationController
     @group1 = SocialGroup.find(@conflict.group_1_id)
     @group2 = SocialGroup.find(@conflict.group_2_id)
     erb :'society/conflicts/show'
+  end
+
+  get '/societies/:slug/conflicts/:conflict_id/edit' do
+    @society = Society.find(get_id(params[:slug]))
+    @conflict = Conflict.find(params[:conflict_id])
+    erb :'society/conflicts/edit'
   end
 
   get '/societies/:slug/social_groups/:social_group_id' do
