@@ -11,5 +11,8 @@
     <option value="true">Yes</option>
     <option value="false">No</option>
   </select><br>
+  <% if @social_group.id %>
+    <input type="hidden" value="<%= @social_group.id %>">
+  <% end %>
   <input type="submit" value="submit">
 </form>

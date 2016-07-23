@@ -54,6 +54,12 @@ class SocietyController < ApplicationController
     erb :'society/social_groups/show'
   end
 
+  get '/societies/:slug/social_groups/:social_group_id/edit' do
+    @society = Society.find(get_id(params[:slug]))
+    @social_group = SocialGroup.find(params[:social_group_id])
+    erb :'society/social_groups/edit'
+  end
+
   get '/societies/:slug/:method' do
     @society = Society.find(get_id(params[:slug]))  
     @method = @society.send(params[:method].to_sym)
