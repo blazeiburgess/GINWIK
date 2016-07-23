@@ -21,12 +21,18 @@ class UserController < ApplicationController
   end
 
   get '/users/new' do
-    @user = User.new
-    erb :'user/edit'
+    if is_logged_in?(session)
+      session[:message] = "You must logout before you can create a new account"
+      redirect to "/users/#{current_user(session).id}"
+    else
+      @user = User.new
+      erb :'user/edit' 
+    end
   end 
 
   get '/login' do
     if is_logged_in?(session)
+      session[:message] = "You are already logged in"
       redirect to "/users/#{session[:user_id]}"
     else
       erb :'user/login'
