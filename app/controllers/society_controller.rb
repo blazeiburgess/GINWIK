@@ -67,7 +67,7 @@ class SocietyController < ApplicationController
   end
 
   post '/societies/:slug/conflicts' do
-    @society = Society.find(get_id(params[:slug]))
+    @society = Society.find(get_id(params[:slug])) 
     if params[:conflict_id]
       conflict = Conflict.find(params[:conflict_id])
       conflict.update(params[:conflict]) 

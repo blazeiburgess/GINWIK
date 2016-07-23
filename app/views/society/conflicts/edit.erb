@@ -2,20 +2,23 @@
 
 <form action="/societies/<%= @society.name + "_" + @society.id.to_s %>/conflicts" method="POST">
   <label>First Group Involved in the Conflict</label>
-  <select name="conflict[:group_1_id]">
+  <select name="conflict[group_1_id]">
     <% @society.social_groups.each do |social_group| %>
-      <option value="social_group.id"><%= social_group.name %></option>
+      <option value="<%= social_group.id %>" <%= "selected" if @conflict.group_1_id == social_group.id %>><%= social_group.name %></option>
     <% end %>
   </select>
   <label>Second Group Involved in the Conflict</label>
-  <select name="conflict[:group_2_id]">
+  <select name="conflict[group_2_id]">
     <% @society.social_groups.each do |social_group| %>
-      <option value="social_group.id"><%= social_group.name %></option>
+      <option value="<%= social_group.id %>" <%= "selected" if @conflict.group_2_id == social_group.id %>><%= social_group.name %></option>
     <% end %>
   </select>
   <br>
   <label>Description of Conflict</label>
-  <textarea name="conflict[:description]"><%= @conflict.description %></textarea>
+  <textarea name="conflict[description]"><%= @conflict.description %></textarea>
+  <% if @conflict.id %>
+    <input type="hidden" name="conflict_id" value="<%= @conflict.id %>">
+  <% end %>
   <br>
   <input type="submit" value="submit">
 </form>
