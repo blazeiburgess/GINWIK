@@ -1,0 +1,15 @@
+<h1>Social Groups Form</h1>
+<br><br>
+
+<form action='/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups' method="POST">
+  <label>Name:</label><br>
+  <input type="text" name="social_group[name]" value="<%= @social_group.name %>"><br>
+  <label>Description</label>
+  <textarea name="social_group[description]"><%= @social_group.description %></textarea><br>
+  <label>Is the group considered legal or legitimate?</label>
+  <select>
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select><br>
+  <input type="submit" value="submit">
+</form>

@@ -42,6 +42,12 @@ class SocietyController < ApplicationController
     end
   end
 
+  get '/societies/:slug/social_groups/new' do
+    @society = Society.find(get_id(params[:slug]))
+    @social_group = SocialGroup.new
+    erb :'society/social_groups/edit'
+  end
+
   get '/societies/:slug/social_groups/:social_group_id' do
     @society = Society.find(get_id(params[:slug]))
     @social_group = SocialGroup.find(params[:social_group_id])
