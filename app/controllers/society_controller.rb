@@ -42,6 +42,19 @@ class SocietyController < ApplicationController
     end
   end
 
+  post '/societies/:slug/social_groups' do
+    society = Society.find(get_id(params[:slug]))
+    if params[:social_group_id]
+      social_group = SocialGroup.find(params[:social_group_id])
+      social_group.update(params[:social_group])
+    else
+      social_group = SocialGroup.create(params[:social_group])
+      social_group.society = society
+      social_group.save
+    end
+    redirect to "/societies/#{params[:slug]}/social_groups/#{social_group.id}"
+  end
+
   get '/societies/:slug/social_groups/new' do
     @society = Society.find(get_id(params[:slug]))
     @social_group = SocialGroup.new
