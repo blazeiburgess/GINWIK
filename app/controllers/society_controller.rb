@@ -81,8 +81,13 @@ class SocietyController < ApplicationController
 
   get '/societies/:slug/conflicts/new' do
     @society = Society.find(get_id(params[:slug]))
-    @conflict = Conflict.new
-    erb :'society/conflicts/edit'
+    if @society.social_groups.empty?
+      session[:message] = "You can only add a conflict if you have at least one social group created"
+      redirect to "/societies/#{params[:slug]}"
+    else
+      @conflict = Conflict.new
+      erb :'society/conflicts/edit'
+    end
   end
 
   get '/societies/:slug/conflicts/:conflict_id' do
