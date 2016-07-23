@@ -24,3 +24,13 @@
     <br>
   <% end %>
 <% end %>
+
+<h5>Social Groups</h5>
+<% if @society.social_groups.first %>
+  <% @society.social_groups.each do |social_group| %>
+    <p><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a></p>
+  <% end %>
+<% else %>
+  <small>null</small> 
+<% end %>
+<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/new"><button>Create a new Social Group</button></a>
