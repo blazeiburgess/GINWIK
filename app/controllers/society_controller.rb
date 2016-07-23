@@ -1,6 +1,7 @@
 class SocietyController < ApplicationController
 
-  get '/societies' do 
+  get '/societies' do  
+    session[:page_title] = "GINWI - Societies"
     erb :'society/index'
   end
 
@@ -26,6 +27,7 @@ class SocietyController < ApplicationController
 
   get '/societies/:slug' do
     @society = Society.find(get_id(params[:slug]))    
+    session[:page_title] = "GINWI - #{@society.name} by #{@society.user.username}"
     erb :'society/show'
   end
 
@@ -40,8 +42,9 @@ class SocietyController < ApplicationController
   end
 
   get '/societies/:slug/:method' do
-    @society = Society.find(get_id(params[:slug])) 
+    @society = Society.find(get_id(params[:slug]))  
     @method = @society.send(params[:method].to_sym)
+    session[:page_title] = "GINWI - #{params[:method]}, #{@society.name} by #{@society.user.username}"
     erb :'society/method/show'
   end
 
