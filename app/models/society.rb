@@ -1,5 +1,6 @@
 class Society < ActiveRecord::Base
   has_many :social_groups
+  has_many :conflicts
   belongs_to :user
   has_one :technological_development
   has_one :culture
