@@ -22,7 +22,6 @@ class UserController < ApplicationController
 
   get '/users/new' do
     @user = User.new
-    @message = session.delete(:message)
     erb :'user/edit'
   end 
 
@@ -30,7 +29,6 @@ class UserController < ApplicationController
     if is_logged_in?(session)
       redirect to "/users/#{session[:user_id]}"
     else
-      @message = session.delete(:message)
       erb :'user/login'
     end
   end
@@ -59,8 +57,7 @@ class UserController < ApplicationController
     erb :'user/show'
   end
 
-  get '/users/:id/edit' do
-    @message = session.delete(:message)
+  get '/users/:id/edit' do 
     if current_user(session) == User.find(params[:id])
       @user = User.find(params[:id])
       erb :'user/edit'

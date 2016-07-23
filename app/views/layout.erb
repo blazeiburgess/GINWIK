@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="http://getskeleton.com/dist/css/skeleton.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
     <style>
       a {
 	text-decoration: none;
@@ -14,13 +14,17 @@
 
   <body>
     <div class="container">
+      <% if session[:message] %>
+	<small><%= session.delete(:message) %></small><br><br>
+      <% end %>
+      <div class="u-pull-right u-cf">	
       <% if is_logged_in?(session) %>
 	<a href="/logout"><button>Logout</button></a>
       <% else %>
 	<a href="/login"><button>Login</button></a>
 	<a href="/users/new"><button>Signup</button></a>
       <% end %>
-      <hr>
+      </div> 
       <%= yield %>
     </div>
   </body>

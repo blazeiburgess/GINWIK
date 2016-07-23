@@ -1,7 +1,6 @@
 class SocietyController < ApplicationController
 
   get '/societies' do 
-    @message = session.delete(:message)
     erb :'society/index'
   end
 
@@ -16,8 +15,13 @@ class SocietyController < ApplicationController
   end
 
   get '/societies/new' do
-    @society = Society.new 
-    erb :'society/edit'
+    if is_logged_in?(session)
+      @society = Society.new 
+      erb :'society/edit'
+    else
+      session[:message] = "You need an account to create a new entry"
+      redirect to "/login"
+    end
   end
 
   get '/societies/:slug' do
@@ -42,10 +46,15 @@ class SocietyController < ApplicationController
   end
 
   post '/societies/:slug/:method' do
-    @society = Society.find(get_id(params[:slug])) 
-    @method = @society.send(params[:method].to_sym)
-    @method.update(params[params[:method].to_sym]) 
-    redirect to "/societies/#{params[:slug]}/#{params[:method]}"
+    if params[params[:method].to_sym][:description].empty?
+      session[:message] = "You must fill out a description"
+      redirect to "/societies/#{params[:slug]}/#{params[:method]}/edit"
+    else
+      @society = Society.find(get_id(params[:slug])) 
+      @method = @society.send(params[:method].to_sym)
+      @method.update(params[params[:method].to_sym]) 
+      redirect to "/societies/#{params[:slug]}/#{params[:method]}"
+    end
   end
 
   get '/societies/:slug/:method/edit' do
