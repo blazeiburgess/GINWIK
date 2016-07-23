@@ -5,6 +5,7 @@ class ApplicationController < Sinatra::Base
   set :session_secret, 'super secret'
 
   get '/' do 
+    session[:home_page] = true
     erb :home
   end
 end

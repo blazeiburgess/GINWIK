@@ -19,7 +19,9 @@
 	<small><%= session.delete(:message) %></small><br><br>
       <% end %>
       <div class="u-pull-right u-cf">
+      <% unless session.delete(:home_page) %>
 	<a href="/societies"><button>Home</button></a>
+      <% end %>
       <% if is_logged_in?(session) %>
 	<a href="/logout"><button>Logout</button></a>
       <% else %>
