@@ -85,8 +85,13 @@ class SocietyController < ApplicationController
       session[:message] = "You can only add a conflict if you have at least one social group created"
       redirect to "/societies/#{params[:slug]}"
     else
-      @conflict = Conflict.new
-      erb :'society/conflicts/edit'
+      if current_user(session) == @society.user
+	@conflict = Conflict.new
+	erb :'society/conflicts/edit'
+      else
+	session[:message] = "You can only add conflict to your own societies"
+	redirect to "/societies/#{params[:slug]}"
+      end
     end
   end
 
@@ -98,10 +103,15 @@ class SocietyController < ApplicationController
     erb :'society/conflicts/show'
   end
 
-  get '/societies/:slug/conflicts/:conflict_id/edit' do
+  get '/societies/:slug/conflicts/:conflict_id/edit' do 
     @society = Society.find(get_id(params[:slug]))
-    @conflict = Conflict.find(params[:conflict_id])
-    erb :'society/conflicts/edit'
+    if current_user(session) == @society.user
+      @conflict = Conflict.find(params[:conflict_id])
+      erb :'society/conflicts/edit'
+    else
+      session[:message] = "You can only add conflict to your own societies"
+      redirect to "/societies/#{params[:slug]}"
+    end
   end
 
   get '/societies/:slug/social_groups/:social_group_id' do
