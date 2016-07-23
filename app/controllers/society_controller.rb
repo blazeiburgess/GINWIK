@@ -72,10 +72,15 @@ class SocietyController < ApplicationController
     erb :'society/social_groups/show'
   end
 
-  get '/societies/:slug/social_groups/:social_group_id/edit' do
+  get '/societies/:slug/social_groups/:social_group_id/edit' do 
     @society = Society.find(get_id(params[:slug]))
-    @social_group = SocialGroup.find(params[:social_group_id])
-    erb :'society/social_groups/edit'
+    if current_user(session) == @society.user
+      @social_group = SocialGroup.find(params[:social_group_id])
+      erb :'society/social_groups/edit'
+    else
+      session[:message] = "You can only edit social groups in your own societies"
+      redirect to "/societies/#{params[:slug]}/social_groups/#{params[:social_group_id]}"
+    end
   end
 
   get '/societies/:slug/:method' do
