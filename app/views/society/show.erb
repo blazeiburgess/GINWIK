@@ -1,10 +1,14 @@
 <h1><%= @society.name %></h1>
 <% if is_logged_in?(session) && current_user(session) != @society.user %>
   <a href="/clone/<%= @society.id.to_s %>"><button>Clone <%= @society.name %></button></a>
+<% elsif current_user(session) == @society.user %>
+  <a href="/societies/<%= get_slug(@society) %>/edit"><button>Edit</button></a>
+  <a href="/societies/<%= get_slug(@society) %>/destroy"><button>Destroy</button></a>
+  
 <% end %>
 <hr>
 <% METHODS.each do |method| %>
-  <h5><%= method.to_s.split("_").map(&:capitalize).join(" ") %></h5> 
+  <h5><%= method_name_to_plain_language(method) %></h5> 
   <% if @society.send(method) %>
     <div class="row">
       <% if is_logged_in?(session) && current_user(session) != @society.user %>
@@ -14,7 +18,7 @@
       <% end %>
       <div class="ten columns">
 	<p><%= @society.send(method).description %></p>
-	<small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>">view details</a></small>
+	<small><a href="/societies/<%= get_slug(@society) %>/<%= method.to_s %>">view details</a></small>
       </div>
     </div> 
     <br>
@@ -24,7 +28,7 @@
       <div class="eight columns">
 	<small>null</small><br>
 	<% if current_user(session) == @society.user %>
-	  <small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>/new">Add details</a></small>
+	  <small><a href="/societies/<%= get_slug(@society) %>/<%= method.to_s %>/new">Add details</a></small>
 	<% end %>
       </div>
     </div>  
