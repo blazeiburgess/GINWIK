@@ -1,10 +1,17 @@
 <h1><%= @society.name %></h1>
+<% if is_logged_in?(session) && current_user(session) != @society.user %>
+  <a href="/<%= @society.name %>/<%= @society.id.to_s %>/clone"><button>Clone <%= @society.name %></button></a>
+<% end %>
 <hr>
 <% METHODS.each do |method| %>
   <h5><%= method.to_s.split("_").map(&:capitalize).join(" ") %></h5> 
   <% if @society.send(method) %>
     <div class="row">
-      <div class="two columns"></div>
+      <% if is_logged_in?(session) && current_user(session) != @society.user %>
+	<div class="two columns"><a href="/<%= method.to_s %>/<%= @society.send(method).id %>/merge"><small>Merge Data</small></a></div>
+      <% else %>
+	<div class="two columns"></div>
+      <% end %>
       <div class="ten columns">
 	<p><%= @society.send(method).description %></p>
 	<small><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= method.to_s %>">view details</a></small>
