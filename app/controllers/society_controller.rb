@@ -164,7 +164,7 @@ class SocietyController < ApplicationController
   get '/societies/:slug/:method/new' do
     @society = Society.find(get_id(params[:slug])) 
     if current_user(session) == @society.user
-      @method = Kernel.const_get(params[:method].split("_").map(&:capitalize).join).create
+      @method = get_class_name(params[:method]).create
       @society.send("#{params[:method].to_sym}=", @method) 
       @society.save 
       @society.send(params[:method].to_sym).save

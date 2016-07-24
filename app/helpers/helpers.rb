@@ -16,4 +16,7 @@ module Helpers
   def get_slug(society)
     "#{society.name + "_" + society.id.to_s}"
   end
+  def get_class_name(str)
+    Kernel.const_get(str.split("_").map(&:capitalize).join)
+  end
 end
