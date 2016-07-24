@@ -19,4 +19,7 @@ module Helpers
   def get_class_name(str)
     Kernel.const_get(str.split("_").map(&:capitalize).join)
   end
+  def get_params_method(params)
+    params[params[:method].to_sym]
+  end
 end

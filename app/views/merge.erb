@@ -9,7 +9,7 @@
   <% end %>
   <br>
   <label>Select one of your societies to merge with (this will overwrite data in this category)</label>
-  <select name="method[society_id]">
+  <select name="<%= params[:method] %>[society_id]">
   <% current_user(session).societies.each do |society| %>
     <option value="<%= society.id %>"><%= society.name %></option>
   <% end %>
