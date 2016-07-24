@@ -7,7 +7,7 @@
     <div class="row">
 	<div class="four columns"></div>
 	<div class="eight columns">
-	  <% if @social_group.send(attribute.to_sym) %>
+	  <% if @social_group.send(attribute.to_sym) || @social_group.send(attribute.to_sym) == false %>
 	    <p><%= @social_group.send(attribute.to_sym) %></p>
 	  <% else %>
 	    <small>null</small>

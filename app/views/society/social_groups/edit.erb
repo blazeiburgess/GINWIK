@@ -9,7 +9,7 @@
   <label>Is the group considered legal or legitimate?</label>
   <select name="social_group[legitimized]">
     <option value="true">Yes</option>
-    <option value="false">No</option>
+    <option value="false" <%= "selected" if !@social_group.legitimized %>>No</option>
   </select><br>
   <% if @social_group.id %>
     <input type="hidden" value="<%= @social_group.id %>" name="social_group_id">
