@@ -1,7 +1,7 @@
 class Society < ActiveRecord::Base
   has_many :social_groups
   has_many :conflicts
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   # has_one :technological_development
   # has_one :culture
   # has_one :economic_organization
