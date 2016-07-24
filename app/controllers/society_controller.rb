@@ -42,6 +42,18 @@ class SocietyController < ApplicationController
     end
   end
 
+  post '/societies/:slug/destroy' do
+    @society = Society.find(get_id(params[:slug]))
+    session[:message] = "#{@society.name} has been permanently deleted."
+    @society.destroy
+    redirect to '/societies'
+  end
+
+  get '/societies/:slug/destroy' do
+    @society = Society.find(get_id(params[:slug]))
+    erb :'society/destroy'
+  end
+
   post '/societies/:slug/social_groups' do
     society = Society.find(get_id(params[:slug]))
     if params[:social_group_id]
