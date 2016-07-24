@@ -1,6 +1,6 @@
 <h1><%= @society.name %></h1>
 <% if is_logged_in?(session) && current_user(session) != @society.user %>
-  <a href="/clone/<%= @society.name %>/<%= @society.id.to_s %>"><button>Clone <%= @society.name %></button></a>
+  <a href="/clone/<%= @society.id.to_s %>"><button>Clone <%= @society.name %></button></a>
 <% end %>
 <hr>
 <% METHODS.each do |method| %>
