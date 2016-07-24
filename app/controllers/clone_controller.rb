@@ -1,7 +1,7 @@
 class CloneController < ApplicationController
   post '/clone/:society_id' do
     @old_society = Society.find(params[:society_id])
-    @society = Society.create(params[:society])
+    @society = Society.create(params[:society]) 
     METHODS.each do |method|
       @society.send("#{method}=", @old_society.send(method))
     end
