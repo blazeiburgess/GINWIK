@@ -1,6 +1,6 @@
 <h1><%= @society.name %></h1>
 <% if is_logged_in?(session) && current_user(session) != @society.user %>
-  <a href="/<%= @society.name %>/<%= @society.id.to_s %>/clone"><button>Clone <%= @society.name %></button></a>
+  <a href="/clone/<%= @society.name %>/<%= @society.id.to_s %>"><button>Clone <%= @society.name %></button></a>
 <% end %>
 <hr>
 <% METHODS.each do |method| %>
@@ -8,7 +8,7 @@
   <% if @society.send(method) %>
     <div class="row">
       <% if is_logged_in?(session) && current_user(session) != @society.user %>
-	<div class="two columns"><a href="/<%= method.to_s %>/<%= @society.send(method).id %>/merge"><small>Merge Data</small></a></div>
+	<div class="two columns"><a href="/merge/<%= method.to_s %>/<%= @society.send(method).id %>"><small>Merge Data</small></a></div>
       <% else %>
 	<div class="two columns"></div>
       <% end %>
