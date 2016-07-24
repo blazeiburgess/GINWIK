@@ -1,7 +1,8 @@
 <h1><%= @society.name %></h1>
-<% if is_logged_in?(session) && current_user(session) != @society.user %>
+<% if is_logged_in?(session) %>
   <a href="/clone/<%= @society.id.to_s %>"><button>Clone <%= @society.name %></button></a>
-<% elsif current_user(session) == @society.user %>
+<% end %>
+<% if current_user(session) == @society.user %>
   <a href="/societies/<%= get_slug(@society) %>/edit"><button>Edit</button></a>
   <a href="/societies/<%= get_slug(@society) %>/destroy"><button>Destroy</button></a>
   

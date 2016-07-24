@@ -1,7 +1,7 @@
 class Society < ActiveRecord::Base
   has_many :social_groups
   has_many :conflicts
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
   # has_one :technological_development
   # has_one :culture
   # has_one :economic_organization
@@ -12,6 +12,6 @@ class Society < ActiveRecord::Base
   # has_one :language
   # has_one :social_group 
   Helpers::METHODS.each do |method|
-    has_one method
+    has_one method, dependent: :destroy
   end
 end
