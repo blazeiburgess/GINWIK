@@ -1,0 +1,9 @@
+<strong>This will create a new instance of this society that you can edit</strong>
+<form action="/clone/<%= params[:society_id] %>" method="post">
+  <input type="text" name="society[name]" <%= "value=\"#{@society.name}\"" if @society.name %>>
+  <% if @society.id %>
+    <input type="hidden" name="society_id" value="<%= @society.id %>">
+  <% end %>
+  <input type="hidden" name="society[user_id]" value="<%= session[:user_id] %>">
+  <input type="submit" value="submit">
+</form>
