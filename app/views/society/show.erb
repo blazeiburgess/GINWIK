@@ -28,10 +28,20 @@
 <h5>Social Groups</h5>
 <% if @society.social_groups.first %>
   <% @society.social_groups.each do |social_group| %>
-    <p><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a></p>
+    <div class="row">
+      <div class="four columns"></div>
+      <div class="eight columns">
+	<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a>
+      </div>
+    </div>
   <% end %>
 <% else %>
-  <small>null</small><br>
+  <div class="row">
+    <div class="four columns"></div>
+    <div class="eight columns">
+      <small>null</small><br>
+    </div>
+  </div>
 <% end %>
 <% if @society.user == current_user(session) %>
   <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/new"><button>Create a new Social Group</button></a>
@@ -39,10 +49,20 @@
 <h5>Conflicts</h5>
 <% if @society.conflicts.first %>
   <% @society.conflicts.each do |conflict| %>
-	  <p><a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/conflicts/<%= conflict.id %>"><%= SocialGroup.find(conflict.group_1_id).name + " //\\\\ " + SocialGroup.find(conflict.group_2_id).name %></a></p>
+    <div class="row">
+      <div class="four columns"></div>
+      <div class="eight columns">
+	  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/conflicts/<%= conflict.id %>"><%= SocialGroup.find(conflict.group_1_id).name + " //\\\\ " + SocialGroup.find(conflict.group_2_id).name %></a>
+      </div>
+    </div>
   <% end %>
 <% else %>
-  <small>null</small><br>
+  <div class="row">
+    <div class="four columns"></div>
+    <div class="eight columns">
+      <small>null</small><br>
+    </div>
+  </div> 
 <% end %>
 <% if @society.user == current_user(session) %>
   <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/conflicts/new"><button>Add a Conflict</button></a>
