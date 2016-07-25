@@ -126,6 +126,23 @@ class SocietyController < ApplicationController
     end
   end
 
+  post '/societies/:slug/conflicts/:conflict_id/destroy' do
+    conflict = Conflict.find(params[:conflict_id])
+    conflict.destroy
+    redirect to "/societies/#{params[:slug]}"
+  end
+
+  get '/societies/:slug/conflicts/:conflict_id/destroy' do
+    @society = Society.find(get_id(params[:slug]))
+    if @society.user == current_user(session) 
+      @conflict = Conflict.find(params[:conflict_id])
+      erb :'society/conflicts/destroy'
+    else
+      session[:message] = "You can only destroy your own conflicts"
+      redirect to "/societies/#{params[:slug]}/conflicts/#{params[:conflict_id]}"
+    end
+  end
+
   get '/societies/:slug/social_groups/:social_group_id' do
     @society = Society.find(get_id(params[:slug]))
     @social_group = SocialGroup.find(params[:social_group_id])

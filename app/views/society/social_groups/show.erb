@@ -1,5 +1,9 @@
 <h1><%= @society.name %></h1>
 <h5><%= @social_group.name %></h5>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= get_slug(@society) %>/social_groups/<%= @social_group.id %>/edit"><button>Edit</button></a>
+  <a href="/societies/<%= get_slug(@society) %>/social_groups/<%= @social_group.id %>/destroy"><button>Destroy</button></a>
+<% end %>
 <hr>
 <% @social_group.attribute_names.each do |attribute| %>
   <% if !attribute.include?("id") && attribute != "name" %>
@@ -15,9 +19,6 @@
 	</div>
     </div>
   <% end %>
-<% end %>
-<% if current_user(session) == @society.user %>
-  <a href="/societies/<%= get_slug(@society) %>/social_groups/<%= @social_group.id %>/edit"><button>Edit</button></a>
 <% end %>
 <br>
 <a href="/societies/<%= get_slug(@society) %>">Go Back</a>

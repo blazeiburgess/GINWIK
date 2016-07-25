@@ -1,0 +1,7 @@
+<h1>Destroy</h1>
+<h3></h3>
+
+<form action="/societies/<%= get_slug(@society) %>/conflicts/<%= @conflict.id %>/destroy" method="POST">
+  <label><strong>This will destroy this conflict. This is not reversable</strong></label>
+  <input type="submit" value="submit">
+</form>

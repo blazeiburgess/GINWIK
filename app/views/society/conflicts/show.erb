@@ -1,5 +1,9 @@
 <h1><%= @society.name %></h1>
 <h3>Conflicts</h3>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= get_slug(@society) %>/conflicts/<%= @conflict.id %>/edit"><button>Edit</button></a>
+  <a href="/societies/<%= get_slug(@society) %>/conflicts/<%= @conflict.id %>/destroy"><button>Destroy</button></a>      
+<% end %>
 <hr>
 <strong>Parties:</strong>
 <div>
@@ -10,8 +14,5 @@
 <br><br>
 <strong>Description:</strong>
 <p><%= @conflict.description %></p>
-<% if current_user(session) == @society.user %>
-  <a href="/societies/<%= get_slug(@society) %>/conflicts/<%= @conflict.id %>/edit"><button>Edit</button></a>
-<% end %>
 <br>
 <a href="/societies/<%= get_slug(@society) %>">Go Back</a>
