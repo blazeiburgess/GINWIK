@@ -7,7 +7,7 @@ class UserController < ApplicationController
       redirect to '/users/new'
     elsif params[:user][:username].empty? || params[:user][:password].empty?
       session[:message] = "Both fields must be filled out"
-      redirect to '/login'
+      redirect to '/users/new'
     else
       if params[:user_id]
 	user = User.find(params[:user_id]) 

@@ -8,7 +8,7 @@ class MethodController < ApplicationController
   end
 
   post '/societies/:slug/:method' do
-    if params[params[:method].to_sym][:description].empty?
+    if get_params_method(params)[:description].empty?
       session[:message] = "You must fill out a description"
       redirect to "/societies/#{params[:slug]}/#{params[:method]}/edit"
     else
