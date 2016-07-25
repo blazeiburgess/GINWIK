@@ -12,7 +12,7 @@
   <h5><%= method_name_to_plain_language(method) %></h5> 
   <% if @society.send(method) %>
     <div class="row">
-      <% if is_logged_in?(session) && current_user(session) != @society.user %>
+      <% if is_logged_in?(session) && current_user(session).societies.count > 0 %>
 	<div class="two columns"><a href="/merge/<%= method.to_s %>/<%= @society.send(method).id %>"><small>Merge Data</small></a></div>
       <% else %>
 	<div class="two columns"></div>

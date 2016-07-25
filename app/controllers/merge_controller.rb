@@ -6,14 +6,16 @@ class MergeController < ApplicationController
       @society.send(params[:method].to_sym).update(get_params_method(params))
     else
       @society.send("#{params[:method].to_sym}=", get_class_name(params[:method]).new(get_params_method(params)))
-      @society.send(params[:method].to_sym).save
-      # @society.save
+      @society.send(params[:method].to_sym).save 
     end
     redirect to "/societies/#{get_slug(@society)}/#{params[:method]}"
   end
 
   get '/merge/:method/:id' do
-    if is_logged_in?(session)
+    if current_user(session).societies.count <  1
+      session[:message] = "You can only merge data when you have at least one society"
+      redirect to "/societies/#{get_slug(get_class_name(params[:method]).find(params[:id]).society)}"
+    elsif is_logged_in?(session)
       @method = get_class_name(params[:method]).find(params[:id])
       "#{@method.description}"
       erb :merge
