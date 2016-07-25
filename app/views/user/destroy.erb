@@ -1,0 +1,7 @@
+<h1>Destroy</h1>
+<h3><%= @user.username %></h3>
+
+<strong>This will permanently delete this instance of <%= @user.username %>. Only continue if you are sure you want to do so.</strong>
+<form action="/users/<%= @user.id %>/destroy" method="POST">
+  <input type="submit" value="Delete">
+</form>

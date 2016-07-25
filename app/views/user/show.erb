@@ -1,4 +1,8 @@
 <h1><%= @user.username %></h1>
+<% if current_user(session) == @user %>
+  <a href="/users/<%= @user.id %>/edit"><button>Edit</button></a>
+  <a href="/users/<%= @user.id %>/destroy"><button>Destroy</button></a>	      
+<% end %>
 <hr>
 <% if @user.societies.empty? %>
   <p>You have no societies.</p>
