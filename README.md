@@ -10,24 +10,24 @@ Unlike a Wiki, it is not meant to be many individuals working to create a single
 
 Before running any of these examples, you should run the below command to make sure that you have the correct ruby gems installed
 
-    `bundle install`
+    bundle install
 
 Next, setup the database by running
 
-    `rake db:migrate`
+    rake db:migrate
 
 ### Running the Application Locally
 
 To run this application locally, cd into the SinatraAssessmentApplication directory that you cloned and run
 
-    `shotgun` 
+    shotgun
 
 Or, if that doesn't work
 
-    `bundle exec shotgun` 
+    bundle exec shotgun
 
 Then travel in your browser to
 
-    `localhost:9393`
+    localhost:9393
 
 
