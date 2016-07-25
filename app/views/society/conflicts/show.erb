@@ -10,5 +10,8 @@
 <br><br>
 <strong>Description:</strong>
 <p><%= @conflict.description %></p>
-<br><br>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= get_slug(@society) %>/conflicts/<%= @conflict.id %>/edit"><button>Edit</button></a>
+<% end %>
+<br>
 <a href="/societies/<%= get_slug(@society) %>">Go Back</a>
