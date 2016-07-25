@@ -162,6 +162,9 @@ class SocietyController < ApplicationController
 
   post '/societies/:slug/social_groups/:social_group_id/destroy' do
     social_group = SocialGroup.find(params[:social_group_id])
+    Conflict.all.each do |conflict|
+      conflict.destroy if conflict.group_1_id == social_group.id || conflict.group_2_id == social_group.id
+    end
     session[:message] = "#{social_group.name} successfully destroyed"
     social_group.destroy
     redirect to "/societies/#{params[:slug]}"
