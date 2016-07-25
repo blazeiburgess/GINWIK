@@ -1,13 +1,14 @@
-<h1>Conflicts</h1>
+<h1><%= @society.name %></h1>
+<h3>Conflicts</h3>
 <hr>
-<br><br>
 <strong>Parties:</strong>
 <div>
-  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= @group1.id %>"><%= @group1.name %></a>
+  <a href="/societies/<%= get_slug(@society) %>/social_groups/<%= @group1.id %>"><%= @group1.name %></a>
   <br>
-  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= @group2.id %>"><%= @group2.name %></a>
+  <a href="/societies/<%= get_slug(@society) %>/social_groups/<%= @group2.id %>"><%= @group2.name %></a>
 </div>
 <br><br>
 <strong>Description:</strong>
 <p><%= @conflict.description %></p>
-
+<br><br>
+<a href="/societies/<%= get_slug(@society) %>">Go Back</a>

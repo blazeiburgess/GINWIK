@@ -1,5 +1,9 @@
+<h1>Society Form</h1>
+<hr>
+
 <form action="/societies" method="post">
-  <input type="text" name="society[name]" <%= "value=\"#{@society.name}\"" if @society.name %>>
+  <label>Name:</label>
+  <input type="text" name="society[name]" <%= "value=\"#{@society.name}\"" if @society.name %>><br>
   <% if @society.id %>
     <input type="hidden" name="society_id" value="<%= @society.id %>">
   <% end %>
