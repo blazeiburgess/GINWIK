@@ -43,7 +43,7 @@
     <div class="row">
       <div class="four columns"></div>
       <div class="eight columns">
-	<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a>
+	<a href="/societies/<%= get_slug(@society) %>/social_groups/<%= social_group.id %>"><%= social_group.name %></a>
       </div>
     </div>
   <% end %>
@@ -56,7 +56,7 @@
   </div>
 <% end %>
 <% if @society.user == current_user(session) %>
-  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/social_groups/new"><button>Create a new Social Group</button></a>
+  <a href="/societies/<%= get_slug(@society) %>/social_groups/new"><button>Create a new Social Group</button></a>
 <% end %>
 <h5>Conflicts</h5>
 <% if @society.conflicts.first %>
