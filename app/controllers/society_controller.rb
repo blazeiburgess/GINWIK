@@ -160,6 +160,24 @@ class SocietyController < ApplicationController
     end
   end
 
+  post '/societies/:slug/social_groups/:social_group_id/destroy' do
+    social_group = SocialGroup.find(params[:social_group_id])
+    session[:message] = "#{social_group.name} successfully destroyed"
+    social_group.destroy
+    redirect to "/societies/#{params[:slug]}"
+  end
+
+  get '/societies/:slug/social_groups/:social_group_id/destroy' do
+    @society = Society.find(get_id(params[:slug]))
+    if current_user(session) == @society.user
+      @social_group = SocialGroup.find(params[:social_group_id])
+      erb :'society/social_groups/destroy'
+    else
+      session[:message] = "You can only destroy your own social groups"
+      redirect to "/societies/#{params[:slug]}/social_groups/#{params[:social_group_id]}"
+    end
+  end
+
   get '/societies/:slug/:method' do
     @society = Society.find(get_id(params[:slug]))  
     @method = @society.send(params[:method].to_sym)
