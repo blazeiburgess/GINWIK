@@ -26,7 +26,12 @@ class CloneController < ApplicationController
   end
 
   get '/clone/:society_id' do
-    @society = Society.find(params[:society_id])
-    erb :clone
+    if is_logged_in?(session)
+      @society = Society.find(params[:society_id])
+      erb :clone
+    else
+      session[:message] = "You can only clone when you're logged in"
+      redirect to '/login'
+    end
   end
 end

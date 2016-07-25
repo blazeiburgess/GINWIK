@@ -17,6 +17,9 @@ class MergeController < ApplicationController
       @method = get_class_name(params[:method]).find(params[:id])
       "#{@method.description}"
       erb :merge
+    else
+      session[:message] = "You can only merge data when logged in"
+      redirect to '/login'
     end
   end
 end
