@@ -51,6 +51,11 @@ class SocietyController < ApplicationController
 
   get '/societies/:slug/destroy' do
     @society = Society.find(get_id(params[:slug]))
-    erb :'society/destroy'
+    if current_user(session) == @society.user
+      erb :'society/destroy'
+    else
+      session[:message] = "You can only delete your own entries"
+      redirect to "/societies/#{params[:slug]}"
+    end
   end
 end
