@@ -72,4 +72,22 @@ class UserController < ApplicationController
       redirect to '/societies'
     end
   end
+
+  post '/users/:id/destroy' do 
+    user = User.find(params[:id])
+    user.destroy
+    session.clear
+    session[:message] = "Account has been deleted"
+    redirect to '/'
+  end
+
+  get '/users/:id/destroy' do 
+    if current_user(session) == User.find(params[:id])
+      @user = User.find(params[:id])
+      erb :'user/destroy'
+    else
+      session[:message] = "You can only delete your own profile"
+      redirect to '/societies'
+    end
+  end
 end
