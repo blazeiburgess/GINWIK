@@ -1,9 +1,12 @@
 <h1><%= @society.name %></h1>
-<h3><%= params[:method].split("_").map(&:capitalize).join(" ") %></h3>
+<h3><%= method_name_to_plain_language(params[:method]) %></h3>
+<% if current_user(session) == @society.user %>
+  <a href="/societies/<%= get_slug(@society) %>/<%= params[:method] %>/edit"><button>Edit entry</button></a>
+<% end %>
 <hr>
 <% @method.attribute_names.each do |attribute| %>
   <% if !attribute.include?("id") %>
-	<h5><%= attribute.split("_").map(&:capitalize).join(" ") %></h5>
+	<h5><%= method_name_to_plain_language(attribute) %></h5>
     <div class="row">
 	<div class="four columns"></div>
 	<div class="eight columns">
@@ -12,8 +15,5 @@
     </div>
   <% end %>
 <% end %>
-<% if current_user(session) == @society.user %>
-  <a href="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>/edit"><button>Edit entry</button></a>
-<% end %>
 <br>
-<a href="/societies/<%= @society.name + "_" + @society.id.to_s %>">Go Back</a>
+<a href="/societies/<%= get_slug(@society) %>">Go Back</a>

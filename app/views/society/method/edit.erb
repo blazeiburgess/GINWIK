@@ -1,9 +1,11 @@
-<h1>Edit <%= @society.name + " - " + params[:method].split("_").map(&:capitalize).join(" ") %></h1>
+<h1><%= @society.name %></h1>
+<h3>Edit <%= method_name_to_plain_language(params[:method]) %></h3>
+<hr>
 
-<form action="/societies/<%= @society.name + "_" + @society.id.to_s %>/<%= params[:method] %>" method="POST">
+<form action="/societies/<%= get_slug(@society) %>/<%= params[:method] %>" method="POST">
   <% @method.attribute_names.each do |attribute| %>
     <% unless attribute.include?("id") %>
-      <label><%= attribute.split("_").map(&:capitalize).join(" ") %></label>
+      <label><%= method_name_to_plain_language(attribute) %></label>
       <textarea name="<%= params[:method] + "[" + attribute + "]" %>"><%= @method.send(attribute.to_sym) %></textarea>
     <% end %>
   <% end %>

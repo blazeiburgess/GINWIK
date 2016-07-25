@@ -21,7 +21,6 @@ class CloneController < ApplicationController
       info.delete("id")
       old_social_group_1 = SocialGroup.find(conflict.group_1_id)
       old_social_group_2 = SocialGroup.find(conflict.group_2_id)
-      binding.pry
       @society.social_groups.each {|sg| info["group_1_id"] = sg.id if sg.description == old_social_group_1.description}
       @society.social_groups.each {|sg| info["group_2_id"] = sg.id if sg.description == old_social_group_2.description}
       info["society_id"] = @society.id 
