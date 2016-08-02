@@ -14,7 +14,7 @@ class MethodController < ApplicationController
     else
       @society = Society.find(get_id(params[:slug])) 
       @method = @society.send(params[:method].to_sym)
-      @method.update(params[params[:method].to_sym]) 
+      @method.update(get_params_method(params)) 
       redirect to "/societies/#{params[:slug]}/#{params[:method]}"
     end
   end

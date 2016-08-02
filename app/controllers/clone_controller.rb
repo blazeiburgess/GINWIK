@@ -4,26 +4,17 @@ class CloneController < ApplicationController
     @society = Society.create(params[:society]) 
     METHODS.each do |method|
       if @old_society.send(method)
-	info = @old_society.send(method).attributes	
-	info.delete("id")
-	info.delete("society_id")
+	info = clean_attrs_of_ids(@old_society.send(method))
 	@society.send("#{method}=", get_class_name(method.to_s).create(info))
       end
     end 
     @old_society.social_groups.each do |social_group|
-      info = social_group.attributes
-      info.delete("id")
-      info["society_id"] = @society.id 
+      info = clean_attrs_of_ids(social_group, @society)
       @society.social_groups << SocialGroup.create(info)
     end    
     @old_society.conflicts.each do |conflict|
-      info = conflict.attributes
-      info.delete("id")
-      old_social_group_1 = SocialGroup.find(conflict.group_1_id)
-      old_social_group_2 = SocialGroup.find(conflict.group_2_id)
-      @society.social_groups.each {|sg| info["group_1_id"] = sg.id if sg.description == old_social_group_1.description}
-      @society.social_groups.each {|sg| info["group_2_id"] = sg.id if sg.description == old_social_group_2.description}
-      info["society_id"] = @society.id 
+      info = clean_attrs_of_ids(conflict) 
+      migrate_conflict(conflict, @society)
       @society.conflicts << Conflict.create(info)
     end    
     redirect to "/societies/#{get_slug(@society)}"

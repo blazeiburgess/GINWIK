@@ -25,4 +25,16 @@ module Helpers
   def get_params_method(params)
     params[params[:method].to_sym]
   end
+  def clean_attrs_of_ids(instance_method, society=nil)
+    hash = instance_method.attributes.reject_if {|attr| attr.include?("id")}
+    if society
+      hash[:society_id] = society.id
+    end
+  end
+  def migrate_conflict(conflict, society)
+    old_social_group_1 = SocialGroup.find(conflict.group_1_id)
+    old_social_group_2 = SocialGroup.find(conflict.group_2_id)
+    society.social_groups.each {|sg| info["group_1_id"] = sg.id if sg.description == old_social_group_1.description}
+    society.social_groups.each {|sg| info["group_2_id"] = sg.id if sg.description == old_social_group_2.description}
+  end
 end

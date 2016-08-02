@@ -5,15 +5,23 @@ class UserController < ApplicationController
     if all_usernames.include?(params[:user][:username])
       session[:message] = "Username already taken. Please pick another."
       redirect to '/users/new'
-    elsif params[:user][:username].empty? || params[:user][:password].empty?
-      session[:message] = "Both fields must be filled out"
-      redirect to '/users/new'
+    elsif params[:user][:username].empty?
+      session[:message] = "Username must be filled out"
+      if params[:user_id]
+	redirect to "/users/#{params[:user_id]}/edit"
+      else
+	redirect to '/users/new'
+      end
     else
       if params[:user_id]
 	user = User.find(params[:user_id]) 
 	user.update(params[:user])
       else
-	user = User.create(params[:user])
+	if params[:user][:password].empty?
+	  session[:message] = "Password must be filled out"
+	else
+	  user = User.create(params[:user])
+	end
       end
       session[:user_id] = user.id
       redirect to "/users/#{user.id}"

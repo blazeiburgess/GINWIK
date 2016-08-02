@@ -3,10 +3,11 @@
 <form action="/users" method="POST">
   <label>Username</label><br>
   <input type="text" name="user[username]" value="<%= @user.username %>" required><br>
-  <label>Password</label><br>
-  <input type="password" name="user[password]"><br
   <% if @user.id %>
     <input type="hidden" name="user_id" value="<%= @user.id %>">
+  <% else %>
+    <label>Password</label><br>
+    <input type="password" name="user[password]"><br>
   <% end %>
   <br><br>
   <input type="submit" value="submit">
